@@ -21,7 +21,7 @@ jobs:
       - name: build macvdmtool
         run: |
           cd macvdmtool && make
-      - name: upload macvdmtool binaries including an embedded script as artifact
+      - name: upload macvdmtool binaries as artifact
         uses: actions/upload-artifact@v4
         with:
           name: macvdmtool
