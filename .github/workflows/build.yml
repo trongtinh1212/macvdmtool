@@ -1,0 +1,28 @@
+on: [push] #foo
+jobs:
+  build-mmacvdmtool:
+    name: build macvdmtool
+    runs-on: macos-latest
+    steps:
+      - name: check Xcode version
+        run: /usr/bin/xcodebuild -version
+
+      - name: checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: checkout trongtinh1212/macvdmtool github repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          #ref: v1.20.1 #try to go with latest
+          repository: trongtinh1212/macvdmtool
+          path: macvdmtool
+      - name: build macvdmtool
+        run: |
+          cd macvdmtool && make
+      - name: upload macvdmtool binaries including an embedded script as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macvdmtool
+          path: ${{ github.workspace }}/macvdmtool/macvdmtool
